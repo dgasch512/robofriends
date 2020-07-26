@@ -3,6 +3,7 @@ import './App.css';
 import CardList from './CardList';
 import SearchBox from './SearchBox';
 import Scroll from './Scroll';
+import ErrorBoundary from './ErrorBoundary';
 
 
 
@@ -17,6 +18,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => {
       return response.json();
@@ -43,7 +45,9 @@ class App extends Component {
           <h1 className='f1'>RoboFriends</h1>
           <SearchBox searchChange={this.onSearchChange}/>
           <Scroll>
-            <CardList robots={filteredRobots}/> 
+            <ErrorBoundary>
+              <CardList robots={filteredRobots}/> 
+            </ErrorBoundary>
           </Scroll>
         </div>
       )
